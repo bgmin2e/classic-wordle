@@ -14,10 +14,6 @@ export default function Intro() {
   const { openModal } = useModalContext();
 
   const goToPlayPage = () => {
-    localStorage.setItem(
-      localStorageKey.CORRECT_WORD,
-      encryptWord(INITIAL_CORRECT_WORD)
-    );
     router.push(
       `play?${searchParam.CODE}=${encryptWord(INITIAL_CORRECT_WORD)}`
     );

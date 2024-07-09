@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useToastBarContext } from "@/app/components/toastbar/toastbar";
 import { useSearchParams } from "next/navigation";
 import { decryptWord } from "@/app/utils/encrytion";
@@ -18,11 +18,10 @@ import { useValidateWord } from "@/app/utils/use-validate-word";
 
 const INITIAL_ATTEMPTED_WORDS: AttemptedWord[] = [];
 
-const correctWord = decryptWord(
-  localStorage.getItem(localStorageKey.CORRECT_WORD) ?? ""
-);
-
 export default function Play() {
+  const correctWord = decryptWord(
+    localStorage.getItem(localStorageKey.CORRECT_WORD) ?? ""
+  );
   const searchParams = useSearchParams();
 
   // 디자인 컴포넌트를 불러오는 hooks
@@ -42,6 +41,12 @@ export default function Play() {
   });
 
   const [keyStatuses, setKeyStatuses] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    const code = searchParams.get(searchParam.CODE) ?? "";
+
+    localStorage.setItem(localStorageKey.CORRECT_WORD, code);
+  }, [searchParams]);
 
   const isFinised =
     attemptedWords.length >= MAX_ATTEMPTS_COUNT ||

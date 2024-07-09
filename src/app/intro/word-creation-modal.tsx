@@ -11,7 +11,6 @@ import { useState } from "react";
 import { searchParam } from "@/app/constants/search-params";
 import { useValidateWord } from "@/app/utils/use-validate-word";
 import { useModalContext } from "@/app/components/modal/modal";
-import { localStorageKey } from "@/app/constants/local-storage";
 
 export default function WordCreationModal() {
   const router = useRouter();
@@ -37,7 +36,6 @@ export default function WordCreationModal() {
     }
     const encryptedWord = encryptWord(word);
     router.push(`play/?${searchParam.CODE}=${encryptedWord}`);
-    localStorage.setItem(localStorageKey.CORRECT_WORD, encryptedWord);
     closeModal();
   };
 
