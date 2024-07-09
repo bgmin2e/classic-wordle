@@ -1,4 +1,3 @@
-import { keyStatusColors } from "@/app/constants/letter-color-map";
 import { KeyStatus } from "@/app/models/key-status";
 import { useEffect } from "react";
 import cx from "classnames";
@@ -11,6 +10,13 @@ const KEYS = [
   ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
   [ENTER, "Z", "X", "C", "V", "B", "N", "M", DELETE],
 ];
+
+const keyStatusColorMap: Map<KeyStatus, string> = new Map([
+  ["correct", "bg-green-200 hover:bg-green-600 active:bg-green-700"],
+  ["present", "bg-amber-200 hover:bg-amber-600 active:bg-amber-700"],
+  ["absent", "bg-gray-200 hover:bg-gray-600 active:bg-gray-700"],
+  ["default", "bg-blue-200 hover:bg-blue-300 active:bg-blue-400"],
+]);
 
 interface KeyboardProps {
   onPressKey: (key: string) => void;
@@ -25,8 +31,6 @@ export default function Keyboard({
   onPressEnter,
   keyStatuses,
 }: KeyboardProps) {
-  const DEFAULT_BG_COLOR = "blue";
-
   const onClick = (key: string) => {
     if (key === ENTER) {
       onPressEnter();
@@ -65,12 +69,10 @@ export default function Keyboard({
 
   const getButtonClassName = (key: string) => {
     if (!keyStatuses) {
-      return `bg-${DEFAULT_BG_COLOR}-200 hover:bg-${DEFAULT_BG_COLOR}-300 active:bg-${DEFAULT_BG_COLOR}-400`;
+      return keyStatusColorMap.get("default");
     }
     const status = keyStatuses[key];
-    const color = keyStatusColors.get(status) ?? DEFAULT_BG_COLOR;
-
-    return `bg-${color}-200 hover:bg-${color}-600 active:bg-${color}-700`;
+    return keyStatusColorMap.get(status) ?? keyStatusColorMap.get("default");
   };
 
   return (
@@ -86,9 +88,7 @@ export default function Keyboard({
                 type="button"
                 className={cx(
                   `w-9 h-9 md:w-16 md:h-16 flex items-center justify-center rounded border-2 border-black shadow-lg text-lg md:text-xl font-bold transition-transform transform hover:scale-105 active:scale-95`,
-                  {
-                    [backgroundColor]: backgroundColor,
-                  }
+                  backgroundColor
                 )}
                 onClick={() => onClick(key)}
               >

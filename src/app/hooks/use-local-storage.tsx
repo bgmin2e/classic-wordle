@@ -13,7 +13,9 @@ export default function useLocalStorage<T>({
   });
 
   useEffect(() => {
-    localStorage.setItem(key, JSON.stringify(storedValue));
+    if (localStorage) {
+      localStorage.setItem(key, JSON.stringify(storedValue));
+    }
   }, [key, storedValue]);
 
   return [storedValue, setStoredValue];

@@ -1,1 +1,1 @@
-export type KeyStatus = "correct" | "present" | "absent";
+export type KeyStatus = "correct" | "present" | "absent" | "default";
