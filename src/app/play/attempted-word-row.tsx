@@ -8,7 +8,7 @@ import { KeyStatus } from "../models/key-status";
 interface AttemptedWordRowProps {
   word: AttemptedWord;
   isCurrentAttempt: boolean;
-  keyStatuses?: { [key: string]: KeyStatus };
+  correctWord?: string;
 }
 
 const keyStatusColorMap: Map<KeyStatus, string> = new Map([
@@ -21,30 +21,41 @@ const keyStatusColorMap: Map<KeyStatus, string> = new Map([
 export function AttemptedWordRow({
   word,
   isCurrentAttempt,
-  keyStatuses,
+  correctWord,
 }: AttemptedWordRowProps) {
   const filledWord = word
     .split("")
     .concat(Array(MAX_WORD_LENGTH - word.length).fill(""));
 
-  const getBackgroundColorClassName = (key: string) => {
-    if (!keyStatuses) {
+  const getBackgroundColorClassName = ({
+    letter,
+    index,
+  }: {
+    letter: string;
+    index: number;
+  }) => {
+    if (!letter || !correctWord) {
       return keyStatusColorMap.get("default");
     }
-    const status = keyStatuses[key];
-    return keyStatusColorMap.get(status) ?? keyStatusColorMap.get("default");
+    if (letter === correctWord[index]) {
+      return keyStatusColorMap.get("correct");
+    }
+    if (correctWord.includes(letter)) {
+      return keyStatusColorMap.get("present");
+    }
+    return keyStatusColorMap.get("absent");
   };
 
   return (
     <div className="flex justify-center">
       {filledWord.map((letter, index) => {
-        const backgroundColor = getBackgroundColorClassName(letter);
+        const backgroundColor = getBackgroundColorClassName({ letter, index });
         return (
           <div
             key={index}
             className={cx(
-              `bg-white w-12 h-12 md:w-16 md:h-16 border-solid border-2 flex items-center justify-center mx-0.5 text-lg md:text-2xl font-bold rounded border-black`,
-              backgroundColor
+              `w-12 h-12 md:w-16 md:h-16 border-solid border-2 flex items-center justify-center mx-0.5 text-lg md:text-2xl font-bold rounded border-black`,
+              isCurrentAttempt ? "bg-white" : backgroundColor
             )}
           >
             {letter}

@@ -7,16 +7,31 @@ export default function useLocalStorage<T>({
   key: string;
   initialValue: T;
 }): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const isBrowser = typeof window !== "undefined";
+
   const [storedValue, setStoredValue] = useState<T>(() => {
-    const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : initialValue;
+    if (!isBrowser) {
+      return initialValue;
+    }
+
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.warn(`Error reading localStorage key “${key}”:`, error);
+      return initialValue;
+    }
   });
 
   useEffect(() => {
-    if (localStorage) {
-      localStorage.setItem(key, JSON.stringify(storedValue));
+    if (isBrowser) {
+      try {
+        window.localStorage.setItem(key, JSON.stringify(storedValue));
+      } catch (error) {
+        console.warn(`Error setting localStorage key “${key}”:`, error);
+      }
     }
-  }, [key, storedValue]);
+  }, [key, storedValue, isBrowser]);
 
   return [storedValue, setStoredValue];
 }

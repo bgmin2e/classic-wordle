@@ -132,7 +132,7 @@ export default function Play() {
               key={index}
               isCurrentAttempt={isCurrentAttempt}
               word={isCurrentAttempt ? currentAttempt : attemptedWord}
-              keyStatuses={keyStatuses}
+              correctWord={correctWord}
             />
           );
         })}

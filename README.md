@@ -1,13 +1,20 @@
-# classic-wordle
-
-find 5 letter word
-
 # Wordle
 
 React(NextJs)와 typscript 로 구현된 Wordle 게임입니다.
 CSS는 tailwind와 classnames 라이브러리를 사용했습니다.
 
-## 설치
+## play
+
+![alt text](image.png)
+
+0. 플레이어는 바로 게임을 시작하거나, 원하는 단어로 게임을 만들 수 있습니다. URL 을 복사하면 동일한 단어의 게임을 공유할 수 있습니다.
+1. 플레이어는 한 번에 한 단어씩 추측할 수 있으며, 각 단어는 지정된 최대 길이 (5 글자)를 초과할 수 없습니다.
+2. 플레이어는 최대 시도 횟수 (6번) 내에 단어를 맞춰야 합니다. 시도 횟수를 초과하면 게임이 종료됩니다.
+3. 각 추측 단어는 외부 API 를 통해 유효성을 검사하여, 실제 존재하는 단어인지 확인합니다.
+4. 입력한 글자가 정답에 포함되어 있는지 여부에 따라, 키보드의 각 키가 색상으로 표시됩니다. 맞춘 글자는 초록색, 포함되어있지만 위치가 다른 글자는 노란색, 포함되어 있지 않은 글자는 회색으로 표시됩니다.
+5. 플레이어가 정답 단어를 맞추거나 최대 시도 횟수에 도달하면 게임이 종료되고, 게임 결과가 표시됩니다.
+
+## 설치 및 실행
 
 ```
 npm install
@@ -16,24 +23,39 @@ npm run dev
 
 ## 폴더 구조
 
-<img width="174" alt="스크린샷 2024-05-26 오전 12 01 16" src="https://github.com/buzzvil-assignments/bgmin2e-gmail.com/assets/155003690/2c4a9aaa-4e00-4dbc-a0fe-ff0c9bf52fbf">
+src/
+└── app/
+├── components/
+├── utils/
+├── hooks/
+├── constants/
+├── models/
+├── play/
+└── intro/
 
 ### components
 
 공용으로 사용할 수 있는 디자인 컴포넌트를 위치시킨 폴더입니다.
-현재 Modal, Toastbar, Keyboard가 구현되어 있습니다.
-
-### constants
-
-상수 변수를 모아둔 폴더입니다.
-localStorageKey, searchParams, initialValue 등의 변수를 관리합니다.
-
-### models
-
-wordle 의 단어 state 를 관리할 때 사용되는 type 또는 interface 입니다.
+현재 Modal, Toastbar, Keyboard가 포함되어 있습니다.
 
 ### utils
 
-여러 컴포넌트에서 공용으로 사용될만한 공용 로직을 분리해둔 폴더 입니다.
-단순 util 성 함수와 react hook이 포함되어 있습니다.
-현재는 word encryption, validateWord, useLocalStorage 등이 구현되어 있습니다.
+1. encryption.ts
+   정답 단어를 Base64 형식으로 인코딩하고 디코딩하는 두 가지 함수를 제공합니다.
+
+2. http.ts
+   Axios를 사용하여 HTTP 요청을 쉽게 보낼 수 있는 HTTP 클라이언트를 제공합니다.
+
+3. validate-word.ts
+   주어진 단어의 유효성을 검사하기 위해 외부 API를 호출합니다. 유효성 검사 결과를 반환하거나, 오류 발생 시 오류 메시지를 반환합니다.
+
+4. remotes.ts
+   외부 API와의 통신을 위한 함수를 모아둔 파일입니다.
+
+### hooks
+
+1. use-internal-router.ts
+   Next.js의 useRouter 훅을 사용하여 라우터 객체를 생성하고, push와 replace 메서드를 반환합니다.
+
+2. use-local-storage.ts
+   주어진 키(key)와 초기 값(initialValue)을 사용하여 로컬 스토리지에 데이터를 저장합니다. useState와 useEffect를 사용하여 로컬 스토리지와 상태를 동기화합니다.
