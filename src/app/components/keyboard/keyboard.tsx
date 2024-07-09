@@ -1,7 +1,10 @@
+import { keyStatusColors } from "@/app/constants/letter-color-map";
+import { KeyStatus } from "@/app/models/key-status";
 import { useEffect } from "react";
+import cx from "classnames";
 
-const ENTER = "ENTER";
-const DELETE = "DEL";
+const ENTER = "⏎";
+const DELETE = "⌫";
 
 const KEYS = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -13,7 +16,7 @@ interface KeyboardProps {
   onPressKey: (key: string) => void;
   onPressEnter: () => void;
   onPressDelete: () => void;
-  keyStatuses: { [key: string]: string };
+  keyStatuses?: { [key: string]: KeyStatus };
 }
 
 export default function Keyboard({
@@ -22,6 +25,8 @@ export default function Keyboard({
   onPressEnter,
   keyStatuses,
 }: KeyboardProps) {
+  const DEFAULT_BG_COLOR = "blue";
+
   const onClick = (key: string) => {
     if (key === ENTER) {
       onPressEnter();
@@ -59,35 +64,38 @@ export default function Keyboard({
   }, [onPressDelete, onPressEnter, onPressKey]);
 
   const getButtonClassName = (key: string) => {
+    if (!keyStatuses) {
+      return `bg-${DEFAULT_BG_COLOR}-200 hover:bg-${DEFAULT_BG_COLOR}-300 active:bg-${DEFAULT_BG_COLOR}-400`;
+    }
     const status = keyStatuses[key];
-    if (status === "correct") {
-      return "bg-green-200 hover:bg-green-600 active:bg-green-700";
-    }
-    if (status === "present") {
-      return "bg-amber-200 hover:bg-yellow-600 active:bg-yellow-700";
-    }
-    if (status === "absent") {
-      return "bg-slate-200 hover:bg-gray-600 active:bg-gray-700";
-    }
-    return "bg-slate-200 hover:bg-slate-300 active:bg-slate-400";
+    const color = keyStatusColors.get(status) ?? DEFAULT_BG_COLOR;
+
+    return `bg-${color}-200 hover:bg-${color}-600 active:bg-${color}-700`;
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center space-y-4">
       {KEYS.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex justify-center mb-5">
-          {row.map((key) => (
-            <button
-              key={key}
-              type="button"
-              className={`min-w-10 w-fit px-2 h-10 flex items-center justify-center rounded mx-0.5 text-base font-bold cursor-pointer select-none ${getButtonClassName(
-                key
-              )}`}
-              onClick={() => onClick(key)}
-            >
-              {key}
-            </button>
-          ))}
+        <div key={rowIndex} className="flex md:space-x-2 space-x-0.5">
+          {row.map((key) => {
+            const backgroundColor = getButtonClassName(key);
+
+            return (
+              <button
+                key={key}
+                type="button"
+                className={cx(
+                  `w-9 h-9 md:w-16 md:h-16 flex items-center justify-center rounded border-2 border-black shadow-lg text-lg md:text-xl font-bold transition-transform transform hover:scale-105 active:scale-95`,
+                  {
+                    [backgroundColor]: backgroundColor,
+                  }
+                )}
+                onClick={() => onClick(key)}
+              >
+                {key}
+              </button>
+            );
+          })}
         </div>
       ))}
     </div>

@@ -27,7 +27,7 @@ const ToastContext = createContext<{
 function ToastBar() {
   const { toastbars } = useToastBarContext();
   return (
-    <div className="fixed inset-x-0 top-10 flex justify-center">
+    <div className="toast-wrap">
       {toastbars.map((toast) => (
         <div key={toast.id} className={`toast ${toast.type}`}>
           {toast.message}

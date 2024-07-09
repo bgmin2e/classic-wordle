@@ -1,56 +1,47 @@
 "use client";
+
 import cx from "classnames";
-import { decryptWord } from "@/app/utils/encrytion";
 import { MAX_WORD_LENGTH } from "@/app/constants/word";
-import { localStorageKey } from "@/app/constants/local-storage";
 import { AttemptedWord } from "@/app/models/word";
+import { KeyStatus } from "../models/key-status";
+import { keyStatusColors } from "../constants/letter-color-map";
 
 interface AttemptedWordRowProps {
   word: AttemptedWord;
   isCurrentAttempt: boolean;
+  keyStatuses?: { [key: string]: KeyStatus };
 }
 
 export function AttemptedWordRow({
   word,
   isCurrentAttempt,
+  keyStatuses,
 }: AttemptedWordRowProps) {
-  const correctWord = decryptWord(
-    localStorage.getItem(localStorageKey.CORRECT_WORD) ?? ""
-  );
+  const DEFAULT_BG_COLOR = "white";
+
   const filledWord = word
     .split("")
     .concat(Array(MAX_WORD_LENGTH - word.length).fill(""));
 
-  const getBackgroundColorClassName = ({
-    letter,
-    index,
-  }: {
-    letter: string;
-    index: number;
-  }) => {
-    if (!letter) {
-      return "bg-white";
+  const getBackgroundColorClassName = (key: string) => {
+    if (!keyStatuses) {
+      return `bg-${DEFAULT_BG_COLOR}`;
     }
-    if (letter === correctWord.at(index)) {
-      return "bg-green-200";
-    }
-    if (correctWord.includes(letter)) {
-      return "bg-amber-200";
-    }
-    return "bg-slate-200";
+    const status = keyStatuses[key];
+    return `bg-${keyStatusColors.get(status)}-200`;
   };
 
   return (
     <div className="flex justify-center">
       {filledWord.map((letter, index) => {
-        const backgroundColor = getBackgroundColorClassName({ letter, index });
+        const backgroundColor = getBackgroundColorClassName(letter);
         return (
           <div
             key={index}
             className={cx(
-              "w-14 h-14 border-solid border-2 flex items-center justify-center mx-0.5 text-2xl font-bold rounded border-slate-200",
+              `bg-white w-12 h-12 md:w-16 md:h-16 border-solid border-2 flex items-center justify-center mx-0.5 text-lg md:text-2xl font-bold rounded border-black`,
               {
-                [backgroundColor]: !isCurrentAttempt && !!backgroundColor,
+                [backgroundColor]: !isCurrentAttempt && backgroundColor,
               }
             )}
           >

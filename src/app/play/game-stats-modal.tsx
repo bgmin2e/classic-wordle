@@ -1,43 +1,63 @@
-"use client";
 import { useModalContext } from "@/app/components/modal/modal";
-import { GameStats } from "@/app/utils/use-game-stats";
-import { useRouter } from "next/navigation";
+import { GameStats } from "../hooks/use-game-stats";
+import { useInternalRouter } from "../hooks/use-internal-router";
+import { useEffect, useState } from "react";
+import { localStorageKey } from "../constants/local-storage";
 
-export default function GameStatsModal({
-  isWin,
-  stats,
-}: {
-  isWin: boolean;
-  stats: GameStats;
-}) {
+export default function GameStatsModal({ isWin = false }: { isWin?: boolean }) {
+  const [stats, setStats] = useState<GameStats>();
+
   const { closeModal } = useModalContext();
-  const router = useRouter();
+  const router = useInternalRouter();
+
+  useEffect(() => {
+    if (localStorage) {
+      const strigStats =
+        localStorage.getItem(localStorageKey.GAME_STATS) ?? "{}";
+      const stats = JSON.parse(strigStats);
+      console.log(stats);
+      setStats(stats);
+    }
+  }, []);
+
+  if (!stats) {
+    return (
+      <div className="font-pixel p-10 flex flex-col gap-4 bg-yellow-200 rounded-xl">
+        <p className="font-bold text-2xl text-center animate-bounce">
+          Game stats not found..
+        </p>
+      </div>
+    );
+  }
 
   const { totalAttempts, totalGames, totalWins, startAt, endAt } = stats;
   const playTime = formattedElapsedTime(startAt, endAt);
   const winRate = ((totalWins / totalGames) * 100).toFixed(2);
 
   const goToHome = () => {
-    router.push("/");
+    router.replace("/");
     closeModal();
   };
 
   return (
-    <div className="p-10 flex flex-col gap-4">
-      <p className="font-bold text-2xl">{isWin ? "succeed!" : "failed.."}</p>
-      <p>playtime: {playTime}</p>
-      <p>total wins: {totalWins}</p>
-      <p>total win rate: {winRate}</p>
-      <p>total attempts: {totalAttempts}</p>
+    <div className="font-pixel p-10 flex flex-col gap-4 bg-yellow-200 rounded-xl">
+      <p className="font-bold text-2xl text-center animate-bounce">
+        {isWin ? "SUCCEED!" : "FAILED.."}
+      </p>
+      <p className="text-center">PLAY TIME: {playTime}</p>
+      <p className="text-center">TOTAL WINS: {totalWins}</p>
+      <p className="text-center">WIN RATE: {winRate}%</p>
+      <p className="text-center">TOTAL ATTEMPTS: {totalAttempts}</p>
       <button
         onClick={goToHome}
-        className="bg-amber-200 w-full h-10 rounded-xl"
+        className="bg-amber-500 hover:bg-amber-600 text-white font-bold py-2 px-4 rounded-full mt-4 focus:outline-none shadow-md"
       >
-        Go back to home
+        GO BACK TO HOME
       </button>
     </div>
   );
 }
+
 function formattedElapsedTime(startTime: number, endTime?: number) {
   if (!startTime || !endTime) {
     return "-";
@@ -56,5 +76,5 @@ function formattedElapsedTime(startTime: number, endTime?: number) {
     (timeDiff % millisecondsPerMinute) / millisecondsPerSecond
   );
 
-  return `${hours} hours ${minutes} minutes ${seconds} seconds`;
+  return `${hours} h ${minutes} m ${seconds} s`;
 }

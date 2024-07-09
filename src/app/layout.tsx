@@ -15,6 +15,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+          rel="stylesheet"
+        />
         <ToastProvider>
           <ModalProvider>{children}</ModalProvider>
         </ToastProvider>

@@ -1,7 +1,5 @@
-// useGameStats.ts
 import { localStorageKey } from "@/app/constants/local-storage";
-import useLocalStorage from "@/app/utils/use-local-storage";
-import { useEffect, useState } from "react";
+import useLocalStorage from "./use-local-storage";
 
 export interface GameStats {
   totalGames: number;
@@ -38,7 +36,6 @@ export const useGameStats = () => {
     };
 
     setStats(updatedStats);
-    return updatedStats;
   };
 
   return { stats, updateStats };

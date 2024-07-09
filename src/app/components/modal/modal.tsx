@@ -5,7 +5,6 @@ import React, {
   useContext,
   useState,
 } from "react";
-import { createPortal } from "react-dom";
 import "./modal.css";
 
 const ModalContext = createContext<{
@@ -23,15 +22,13 @@ function Modal() {
 
   return (
     <>
-      {modalContent &&
-        createPortal(
-          <div className="modal-dimmed" onClick={closeModal}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-              <div className="modal-body">{modalContent}</div>
-            </div>
-          </div>,
-          document.body
-        )}
+      {modalContent && (
+        <div className="modal-dimmed" onClick={closeModal}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-body">{modalContent}</div>
+          </div>
+        </div>
+      )}
     </>
   );
 }

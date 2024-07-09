@@ -1,5 +1,14 @@
+.toast-wrap {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .toast {
-  position: relative;
   padding: 10px 20px;
   margin-bottom: 10px;
   border-radius: 8px;
