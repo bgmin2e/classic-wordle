@@ -5,7 +5,7 @@ CSS는 tailwind와 classnames 라이브러리를 사용했습니다.
 
 ## play
 
-![alt text](image.png)
+![image](https://github.com/bgmin2e/classic-wordle/assets/155003690/13ce5f40-32e8-4dc2-8a33-54ecf4617d78)
 
 0. 플레이어는 바로 게임을 시작하거나, 원하는 단어로 게임을 만들 수 있습니다. URL 을 복사하면 동일한 단어의 게임을 공유할 수 있습니다.
 1. 플레이어는 한 번에 한 단어씩 추측할 수 있으며, 각 단어는 지정된 최대 길이 (5 글자)를 초과할 수 없습니다.
@@ -23,6 +23,7 @@ npm run dev
 
 ## 폴더 구조
 
+```
 src/
 └── app/
 ├── components/
@@ -32,6 +33,7 @@ src/
 ├── models/
 ├── play/
 └── intro/
+```
 
 ### components
 
