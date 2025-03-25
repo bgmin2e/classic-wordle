@@ -122,13 +122,9 @@ export default function Play() {
   );
 
   return (
-    <main className="background-stars flex items-center justify-center min-h-screen bg-[#fceaff] p-4 overflow-hidden">
+    <main className="flex flex-col gap-6 background-stars flex items-center justify-center min-h-screen bg-[#fceaff] p-4 overflow-hidden">
+      <img src="/wordle_logo.png" alt="Wordle Logo" className="w-full" />
       <div className="flex flex-col items-center justify-center gap-6 border-[6px] border-black rounded-xl bg-[#fff1fb] text-gray-800 font-pixel p-4 max-w-md mx-auto shadow-[4px_4px_0_#000] w-full">
-        <div className="flex flex-col items-center mb-4">
-          <h1 className="text-4xl drop-shadow-[2px_2px_0_#000] text-pink-600">
-            WORDLE
-          </h1>
-        </div>
         <div className="flex flex-col gap-4 w-full">
           {filleAttempts.map((attemptedWord, index) => {
             const isCurrentAttempt = index === getCurrentIndex(filleAttempts);
