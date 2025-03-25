@@ -30,8 +30,12 @@ export default function Intro() {
   };
 
   return (
-    <div className="background-stars flex flex-col items-center justify-center gap-8 min-h-screen bg-[#fceaff] p-4 overflow-hidden">
-      <img src="/wordle_logo.png" alt="logo" className="w-full" />
+    <div className="background-stars flex flex-col items-center justify-center gap-8 min-h-screen bg-[#fceaff] p-4 px-4 overflow-hidden">
+      <img
+        src="/wordle_logo.png"
+        alt="logo"
+        className="w-full max-w-md mx-auto"
+      />
       <main className="w-full flex flex-col items-center justify-center gap-6 text-gray-800 font-pixel p-4 max-w-md mx-auto">
         <button
           onClick={goToPlayPage}

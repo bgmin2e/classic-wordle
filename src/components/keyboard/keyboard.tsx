@@ -76,12 +76,9 @@ export default function Keyboard({
   };
 
   return (
-    <div className="flex flex-col items-center space-y-3 w-full max-w-md">
+    <div className="flex flex-col items-center space-y-3 w-full max-w-full mx-auto">
       {KEYS.map((row, rowIndex) => (
-        <div
-          key={rowIndex}
-          className="flex flex-nowrap justify-center gap-1 md:gap-2"
-        >
+        <div key={rowIndex} className="flex flex-nowrap justify-center gap-1">
           {row.map((key) => {
             const backgroundColor = getButtonClassName(key);
 

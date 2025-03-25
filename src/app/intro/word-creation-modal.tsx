@@ -41,7 +41,7 @@ export default function WordCreationModal() {
     setWord((prev) => (prev + value).slice(0, MAX_WORD_LENGTH));
 
   return (
-    <div className="border border-black outline outline-[2px] outline-pink-300 rounded-xl bg-[#fff1fb] text-gray-800 font-pixel p-6 w-full max-w-sm mx-auto shadow-[4px_4px_0_#000] flex flex-col gap-6 items-center">
+    <div className="border border-black outline outline-[2px] outline-pink-300 rounded-xl bg-[#fff1fb] text-gray-800 font-pixel p-6 w-full mx-auto shadow-[4px_4px_0_#000] flex flex-col gap-6 items-center">
       <p className="text-center text-base font-bold">
         Please enter a five-letter word.
       </p>
