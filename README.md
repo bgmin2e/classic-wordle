@@ -4,10 +4,11 @@ React(NextJs)와 typscript 로 구현된 Wordle 게임입니다.
 제가 워낙 좋아하는 게임이라 유저가 직접 문제를 낼 수 있는 버전을 만들어보고 싶었습니다.
 
 ## play
+<a href="https://classic-wordle-bgmin2es-projects.vercel.app/">
+   <img width="377" alt="claasic-wordle" src="https://github.com/user-attachments/assets/5c1110ca-1d3b-486e-abd3-1f3947c5bc29" />
+</a>
 
-![image](https://github.com/bgmin2e/classic-wordle/assets/155003690/13ce5f40-32e8-4dc2-8a33-54ecf4617d78)
-
-위 이미지를 클릭하면 게임을 플레이할 수 있습니다.
+💡 위 이미지를 클릭하면 게임을 플레이할 수 있습니다.
 
 0. 플레이어는 바로 게임을 시작하거나, 원하는 단어로 게임을 만들 수 있습니다. URL 을 복사하면 동일한 단어의 게임을 공유할 수 있습니다.
 1. 플레이어는 한 번에 한 단어씩 추측할 수 있으며, 각 단어는 지정된 최대 길이 (5 글자)를 초과할 수 없습니다.
