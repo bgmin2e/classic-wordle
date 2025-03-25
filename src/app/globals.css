@@ -1,3 +1,46 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+.cat-sprite {
+  width: 242px;
+  height: 242px;
+  background: url("/cat_sprite_combined.png") left center;
+  animation: cat-blink 1s steps(4) infinite;
+}
+
+@keyframes cat-blink {
+  100% {
+    background-position: -968px;
+  }
+}
+
+@keyframes stars {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 0 1000px;
+  }
+}
+
+/* .background-stars {
+  background-image: url('/cute_pixel_sky.png'); /* 별 이미지 */
+/* background-size: cover;
+  animation: stars 30s linear infinite;
+} */
+
+.background-stars {
+  background-image: radial-gradient(#ffbde7 1px, transparent 2px),
+    radial-gradient(#fff1a6 1px, transparent 1px);
+  background-size: 10px 10px;
+  background-position: 0 0, 5px 5px;
+  animation: pixel-scroll 20s linear infinite;
+}
+
+@keyframes pixel-scroll {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}

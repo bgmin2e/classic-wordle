@@ -1,4 +1,4 @@
-import { KeyStatus } from "@/app/models/key-status";
+import { KeyStatus } from "@/models/key-status";
 import { useEffect } from "react";
 import cx from "classnames";
 
@@ -7,8 +7,8 @@ const DELETE = "⌫";
 
 const KEYS = [
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
-  ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
-  [ENTER, "Z", "X", "C", "V", "B", "N", "M", DELETE],
+  ["A", "S", "D", "F", "G", "H", "J", "K", "L", ENTER],
+  ["Z", "X", "C", "V", "B", "N", "M", DELETE],
 ];
 
 const keyStatusColorMap: Map<KeyStatus, string> = new Map([
@@ -76,9 +76,12 @@ export default function Keyboard({
   };
 
   return (
-    <div className="flex flex-col items-center space-y-4">
+    <div className="flex flex-col items-center space-y-3 w-full max-w-md">
       {KEYS.map((row, rowIndex) => (
-        <div key={rowIndex} className="flex md:space-x-2 space-x-0.5">
+        <div
+          key={rowIndex}
+          className="flex flex-nowrap justify-center gap-1 md:gap-2"
+        >
           {row.map((key) => {
             const backgroundColor = getButtonClassName(key);
 
@@ -87,7 +90,7 @@ export default function Keyboard({
                 key={key}
                 type="button"
                 className={cx(
-                  `w-9 h-9 md:w-16 md:h-16 flex items-center justify-center rounded border-2 border-black shadow-lg text-lg md:text-xl font-bold transition-transform transform hover:scale-105 active:scale-95`,
+                  `rounded-full border-[3px] border-black w-7 h-8 md:w-10 md:h-12 text-[10px] md:text-sm text-black font-bold shadow-[3px_3px_0_#000] active:translate-x-[2px] active:translate-y-[2px] transition`,
                   backgroundColor
                 )}
                 onClick={() => onClick(key)}

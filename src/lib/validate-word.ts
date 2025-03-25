@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getWordValidationResult } from "../remotes";
+import { getWordValidationResult } from "../services/api";
 
 export async function validateWord(word: string) {
   try {

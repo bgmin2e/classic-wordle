@@ -1,4 +1,4 @@
-import { localStorageKey } from "@/app/constants/local-storage";
+import { localStorageKey } from "@/constants/local-storage";
 import useLocalStorage from "./use-local-storage";
 
 export interface GameStats {

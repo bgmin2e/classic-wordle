@@ -2,8 +2,8 @@
 
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ModalProvider } from "@/app/components/modal/modal";
-import { ToastProvider } from "@/app/components/toastbar/toastbar";
+import { ModalProvider } from "@/components/modal/modal";
+import { ToastProvider } from "@/components/toastbar/toastbar";
 
 const inter = Inter({ subsets: ["latin"] });
 

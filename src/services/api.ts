@@ -1,4 +1,4 @@
-import { http } from "./utils/http";
+import { http } from "../lib/http";
 
 export function getWordValidationResult(word: string) {
   return http.get<Response>(

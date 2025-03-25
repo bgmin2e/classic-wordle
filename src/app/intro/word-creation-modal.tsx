@@ -1,16 +1,16 @@
 "use client";
 
-import Keyboard from "@/app/components/keyboard/keyboard";
-import { useToastBarContext } from "@/app/components/toastbar/toastbar";
-import { MAX_WORD_LENGTH } from "@/app/constants/word";
-import { AttemptedWord } from "@/app/models/word";
+import Keyboard from "@/components/keyboard/keyboard";
+import { useToastBarContext } from "@/components/toastbar/toastbar";
+import { MAX_WORD_LENGTH } from "@/constants/word";
+import { AttemptedWord } from "@/models/word";
 import { AttemptedWordRow } from "../play/attempted-word-row";
-import { encryptWord } from "@/app/utils/encrytion";
+import { encryptWord } from "@/lib/encrytion";
 import { useState } from "react";
-import { searchParam } from "@/app/constants/search-params";
-import { useModalContext } from "@/app/components/modal/modal";
-import { validateWord } from "../utils/validate-word";
-import { useInternalRouter } from "../hooks/use-internal-router";
+import { searchParam } from "@/constants/search-params";
+import { useModalContext } from "@/components/modal/modal";
+import { validateWord } from "../../lib/validate-word";
+import { useInternalRouter } from "../../hooks/use-internal-router";
 
 export default function WordCreationModal() {
   const { closeModal } = useModalContext();
@@ -41,8 +41,10 @@ export default function WordCreationModal() {
     setWord((prev) => (prev + value).slice(0, MAX_WORD_LENGTH));
 
   return (
-    <div className="font-pixel p-6 flex flex-col gap-10 bg-yellow-200 rounded-lg shadow-lg">
-      <p className="text-center text-xl">Please enter a five-letter word.</p>
+    <div className="border border-black outline outline-[2px] outline-pink-300 rounded-xl bg-[#fff1fb] text-gray-800 font-pixel p-6 w-full max-w-sm mx-auto shadow-[4px_4px_0_#000] flex flex-col gap-6 items-center">
+      <p className="text-center text-base font-bold">
+        Please enter a five-letter word.
+      </p>
       <AttemptedWordRow isCurrentAttempt word={word} />
       <Keyboard
         onPressKey={onPressKey}
